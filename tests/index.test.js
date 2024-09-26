@@ -49,3 +49,39 @@ describe('D Class', () => {
 		expect(d.secs).toBe(5);
 	});
 });
+
+describe('D Class - Format Method', () => {
+	let d;
+
+	beforeEach(() => {
+		d = new D(2017, 0, 2, 3, 4, 5);  // January 2, 2017, 03:04:05
+	});
+
+	test('should return default formatted date', () => {
+		expect(d.format()).toBe('2017 January 02');
+	});
+
+	test('should format year, month, date correctly', () => {
+		expect(d.format('Y-M-D')).toBe('2017-January-02');
+	});
+
+	test('should format short year, short month, and date correctly', () => {
+		expect(d.format('y/m/d')).toBe('17/Jan/2');
+	});
+
+	test('should format hours, minutes, seconds with padding', () => {
+		expect(d.format('H:I:S')).toBe('03:04:05');
+	});
+
+	test('should format hours, minutes, seconds without padding', () => {
+		expect(d.format('h:i:s')).toBe('3:4:5');
+	});
+
+	test('should format date with ordinal suffix', () => {
+		expect(d.format('#')).toBe('2nd');
+	});
+
+	test('should ignore unrecognized characters in format', () => {
+		expect(d.format('Y-M-D @ H:I:S')).toBe('2017-January-02 @ 03:04:05');
+	});
+});

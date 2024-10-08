@@ -1,4 +1,3 @@
-// d.test.js
 const D = require('../src/index');  // Adjust the path to the D class if necessary
 
 describe('D Class', () => {
@@ -85,3 +84,50 @@ describe('D Class - Format Method', () => {
 		expect(d.format('Y-M-D @ H:I:S')).toBe('2017-January-02 @ 03:04:05');
 	});
 });
+
+describe('D Class - When Method', () => {
+	let currentDate;
+
+	beforeAll(() => {
+		// Use the current date of October 8, 2024 for consistent testing
+		currentDate = new Date(2024, 9, 8);  // October 8, 2024
+		jest.useFakeTimers('modern').setSystemTime(currentDate);
+	});
+
+	afterAll(() => {
+		// Reset the timers after the tests
+		jest.useRealTimers();
+	});
+
+	test('should return "6 months ago"', () => {
+		const d = new D(2024, 3, 8);  // April 8, 2024
+		expect(d.when()).toBe('6 months ago');
+	});
+
+	test('should return "3 months from now"', () => {
+		const d = new D(2025, 0, 8);  // January 8, 2025
+		expect(d.when()).toBe('3 months from now');
+	});
+
+	test('should return "5 years from now"', () => {
+		const d = new D(2029, 9, 8);  // October 8, 2029
+		expect(d.when()).toBe('5 years from now');
+	});
+
+	test('should return "3 days from now"', () => {
+		const d = new D(2024, 9, 11);  // October 11, 2024
+		expect(d.when()).toBe('3 days from now');
+	});
+
+	test('should return "today" for the same date', () => {
+		const d = new D(2024, 9, 8);  // October 8, 2024 (same as current date)
+		expect(d.when()).toBe('today');
+	});
+
+	test('should return "2 days ago"', () => {
+		const d = new D(2024, 9, 6);  // October 6, 2024
+		expect(d.when()).toBe('2 days ago');
+	});
+});
+
+

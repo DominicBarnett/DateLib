@@ -57,6 +57,47 @@ class D {
 		// Replace each formatting character in the mask
 		return mask.replace(/Y|y|M|m|D|d|L|l|#|H|h|I|i|S|s/g, match => replacements[match]);
 	}
+
+	when() {
+		const now = new Date();
+		const diff = this._date.getTime() - now.getTime();
+		const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+		const diffMonths = (this._date.getFullYear() - now.getFullYear()) * 12 + (this._date.getMonth() - now.getMonth());
+		const diffYears = this._date.getFullYear() - now.getFullYear();
+	  
+		if (diffDays === 0) {
+		  return 'today';
+		} else if (diffDays === 1) {
+		  return 'tomorrow';
+		} else if (diffDays === -1) {
+		  return 'yesterday';
+		} else if (diffDays > 1 && diffDays < 7) {
+		  return `${diffDays} days from now`;
+		} else if (diffDays < -1 && diffDays > -7) {
+		  return `${-diffDays} days ago`;
+		} else if (diffMonths === 1) {
+		  return '1 month from now';
+		} else if (diffMonths === -1) {
+		  return '1 month ago';
+		} else if (diffMonths > 1 && diffMonths < 12) {
+		  return `${diffMonths} months from now`;
+		} else if (diffMonths < -1 && diffMonths > -12) {
+		  return `${-diffMonths} months ago`;
+		} else if (diffYears === 1) {
+		  return '1 year from now';
+		} else if (diffYears === -1) {
+		  return '1 year ago';
+		} else if (diffYears > 1) {
+		  return `${diffYears} years from now`;
+		} else if (diffYears < -1) {
+		  return `${-diffYears} years ago`;
+		}
+	  
+		return '';
+	  }
+	  
+	
+	
 }
 
 module.exports = D;

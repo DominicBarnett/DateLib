@@ -1,5 +1,5 @@
 {
-  "name": "decklib",
+  "name": "datelib",
   "version": "1.0.0",
   "description": "",
   "main": "dist/bundle.umd.js",
